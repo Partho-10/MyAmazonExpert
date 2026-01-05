@@ -143,25 +143,44 @@
         .swiper-button-next, .swiper-button-prev {
             color: var(--mag-yellow) !important;
             background: rgba(255, 255, 255, 0.1);
-            width: 50px;
-            height: 50px;
+            width: 40px; /* Smaller on mobile default */
+            height: 40px;
             border-radius: 50%;
             transition: all 0.3s ease;
-            z-index: 50; /* Ensure arrows are clickable */
+            z-index: 50; 
             cursor: pointer;
+        }
+        @media (min-width: 768px) {
+            .swiper-button-next, .swiper-button-prev {
+                width: 50px;
+                height: 50px;
+            }
         }
         .swiper-button-next:hover, .swiper-button-prev:hover {
             background: var(--mag-yellow);
             color: #000 !important;
         }
         .swiper-button-next:after, .swiper-button-prev:after {
-            font-size: 20px !important;
+            font-size: 16px !important;
             font-weight: bold;
+        }
+        @media (min-width: 768px) {
+            .swiper-button-next:after, .swiper-button-prev:after {
+                font-size: 20px !important;
+            }
         }
 
         /* CRITICAL: Makes the slide move smoothly (Linear) */
         .swiper-wrapper {
             transition-timing-function: linear !important;
+        }
+
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .menu-open {
+            overflow: hidden; /* Prevent body scroll when menu is open */
         }
 
     </style>
@@ -170,7 +189,7 @@
 
     <div class="bg-[#37475A] text-white py-2 text-xs sm:text-sm font-medium">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-            <p><i class="fa-solid fa-chart-line text-mag-yellow mr-2"></i> Grow Your Amazon Sales Today!</p>
+            <p class="truncate"><i class="fa-solid fa-chart-line text-mag-yellow mr-2"></i> Grow Your Amazon Sales Today!</p>
             <div class="hidden sm:flex space-x-4">
                 <a href="#" class="hover:text-mag-orange transition">Case Studies</a>
                 <a href="#" class="hover:text-mag-orange transition">Blog</a>
@@ -181,13 +200,13 @@
 
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-24">
-                <div class="flex items-center gap-3">
-                    <div class="bg-mag-dark text-white p-3 rounded shadow-lg">
-                        <i class="fa-brands fa-amazon text-3xl"></i>
+            <div class="flex justify-between items-center h-20 lg:h-24">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <div class="bg-mag-dark text-white p-2 sm:p-3 rounded shadow-lg">
+                        <i class="fa-brands fa-amazon text-2xl sm:text-3xl"></i>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-extrabold text-mag-dark leading-none tracking-tight">MY AMAZON <br><span class="text-mag-green">EXPERT</span></h1>
+                        <h1 class="text-xl sm:text-2xl font-extrabold text-mag-dark leading-none tracking-tight">MY AMAZON <br><span class="text-mag-green">EXPERT</span></h1>
                     </div>
                 </div>
 
@@ -199,78 +218,110 @@
                 </div>
 
                 <div class="lg:hidden">
-                    <button class="text-mag-dark text-3xl"><i class="fa-solid fa-bars"></i></button>
+                    <button id="mobile-menu-btn" class="text-mag-dark text-2xl sm:text-3xl focus:outline-none p-2">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full lg:hidden flex flex-col h-screen w-screen">
+            <div class="flex justify-between items-center p-4 border-b border-gray-100">
+                <div class="flex items-center gap-2">
+                    <div class="bg-mag-dark text-white p-2 rounded">
+                        <i class="fa-brands fa-amazon text-xl"></i>
+                    </div>
+                    <span class="font-extrabold text-mag-dark">MY AMAZON EXPERT</span>
+                </div>
+                <button id="close-menu-btn" class="text-mag-dark text-3xl p-2">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="flex flex-col items-center justify-center flex-grow space-y-8 p-6">
+                <a href="#services" class="mobile-link text-2xl font-bold text-gray-800 hover:text-mag-green transition">Services</a>
+                <a href="#about" class="mobile-link text-2xl font-bold text-gray-800 hover:text-mag-green transition">About</a>
+                <a href="#results" class="mobile-link text-2xl font-bold text-gray-800 hover:text-mag-green transition">Results</a>
+                <a href="#contact" class="mobile-link btn-yellow px-8 py-4 rounded text-lg w-full text-center shadow-lg">Book Consultation</a>
+                
+                <div class="flex gap-6 pt-8 mt-8 border-t border-gray-100 w-full justify-center">
+                    <a href="#" class="text-2xl text-gray-400 hover:text-mag-dark"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-mag-dark"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="text-2xl text-gray-400 hover:text-mag-dark"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="relative bg-mag-dark min-h-[650px] flex items-center overflow-hidden">
+    <div class="relative bg-mag-dark min-h-[auto] lg:min-h-[650px] flex items-center overflow-hidden pb-12 lg:pb-0">
         <div class="absolute inset-0 z-0 opacity-20" style="background-image: radial-gradient(#FFD600 1px, transparent 1px); background-size: 30px 30px;"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col-reverse lg:flex-row items-center">
-            <div class="w-full lg:w-1/2 text-white mt-10 lg:mt-0 pt-10 lg:pt-0" data-aos="fade-right">
-                <div class="inline-block bg-mag-yellow text-black text-xs font-extrabold px-3 py-1 rounded mb-4 uppercase tracking-wider shadow-lg">
+            
+            <div class="w-full lg:w-1/2 text-white mt-12 lg:mt-0 text-center lg:text-left" data-aos="fade-right">
+                <div class="inline-block bg-mag-yellow text-black text-[10px] sm:text-xs font-extrabold px-3 py-1 rounded mb-4 uppercase tracking-wider shadow-lg">
                     #1 Amazon Consulting Agency
                 </div>
-                <h1 class="text-5xl lg:text-7xl font-extrabold leading-tight mb-6">
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight mb-6">
                     We Help Brands <br>
                     <span class="headline-highlight">Scale on Amazon.</span>
                 </h1>
-                <p class="text-lg text-gray-300 mb-8 max-w-lg leading-relaxed">
+                <p class="text-base sm:text-lg text-gray-300 mb-8 max-w-lg leading-relaxed mx-auto lg:mx-0">
                     My Amazon Expert is a private e-commerce consulting company. We help brands, sellers, and businesses successfully launch, manage, and scale across global marketplaces.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button class="btn-yellow px-8 py-4 rounded text-lg shadow-xl">Get A Free Audit</button>
-                    <button class="btn-green px-8 py-4 rounded text-lg shadow-xl">View Our Services</button>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <button class="btn-yellow px-6 sm:px-8 py-4 rounded text-base sm:text-lg shadow-xl w-full sm:w-auto">Get A Free Audit</button>
+                    <button class="btn-green px-6 sm:px-8 py-4 rounded text-base sm:text-lg shadow-xl w-full sm:w-auto">View Our Services</button>
                 </div>
-                <div class="mt-12 grid grid-cols-3 gap-6 border-t border-gray-700 pt-6">
+                
+                <div class="mt-12 grid grid-cols-3 gap-2 sm:gap-6 border-t border-gray-700 pt-6">
                     <div>
-                        <h3 class="text-3xl font-bold text-white">450+</h3>
-                        <p class="text-xs text-mag-yellow uppercase font-semibold">Brands Managed</p>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white">450+</h3>
+                        <p class="text-[10px] sm:text-xs text-mag-yellow uppercase font-semibold">Brands Managed</p>
                     </div>
                     <div>
-                        <h3 class="text-3xl font-bold text-white">$1.2B+</h3>
-                        <p class="text-xs text-mag-green uppercase font-semibold">Revenue Generated</p>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white">$1.2B+</h3>
+                        <p class="text-[10px] sm:text-xs text-mag-green uppercase font-semibold">Revenue Generated</p>
                     </div>
                     <div>
-                        <h3 class="text-3xl font-bold text-white">100%</h3>
-                        <p class="text-xs text-mag-orange uppercase font-semibold">Amazon Focused</p>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white">100%</h3>
+                        <p class="text-[10px] sm:text-xs text-mag-orange uppercase font-semibold">Amazon Focused</p>
                     </div>
                 </div>
             </div>
-            <div class="w-full lg:w-1/2 flex justify-center lg:justify-end relative" data-aos="fade-left">
-                <div class="absolute top-10 right-10 w-72 h-72 bg-mag-yellow opacity-10 rounded-full blur-3xl"></div>
-                <div class="relative z-10 p-3 bg-white/10 rounded-2xl border border-white/20 backdrop-blur-sm">
-                    <img src="sagin.jpg" alt="Sagin Jahan - CEO of My Amazon Expert" class="rounded-xl shadow-2xl max-h-[550px] object-cover w-full lg:w-auto transform hover:scale-105 transition duration-500">
-                    <div class="absolute bottom-8 left-[-20px] bg-white text-mag-dark p-5 rounded-lg shadow-2xl border-l-8 border-mag-yellow animate-bounce hidden md:block">
-                        <p class="font-extrabold text-lg">Sagin Jahan</p>
-                        <p class="text-xs text-gray-500 font-bold uppercase tracking-wide">CEO & Founder</p>
+
+            <div class="w-full lg:w-1/2 flex justify-center lg:justify-end relative mt-10 lg:mt-0" data-aos="fade-left">
+                <div class="absolute top-10 right-10 w-40 sm:w-72 h-40 sm:h-72 bg-mag-yellow opacity-10 rounded-full blur-3xl"></div>
+                <div class="relative z-10 p-2 sm:p-3 bg-white/10 rounded-2xl border border-white/20 backdrop-blur-sm max-w-[80%] lg:max-w-full">
+                    <img src="sagin.jpg" alt="Sagin Jahan - CEO of My Amazon Expert" class="rounded-xl shadow-2xl max-h-[400px] lg:max-h-[550px] object-cover w-full transform hover:scale-105 transition duration-500">
+                    
+                    <div class="hidden sm:block absolute bottom-4 sm:bottom-8 left-[-10px] sm:left-[-20px] bg-white text-mag-dark p-3 sm:p-5 rounded-lg shadow-2xl border-l-8 border-mag-yellow animate-bounce">
+                        <p class="font-extrabold text-sm sm:text-lg">Sagin Jahan</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 font-bold uppercase tracking-wide">CEO & Founder</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="bg-gray-100 py-10 border-b border-gray-200">
+    <div class="bg-gray-100 py-8 sm:py-10 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-6">Trusted by 450+ Brands Worldwide</p>
-            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                <i class="fa-brands fa-amazon text-5xl text-mag-dark hover:text-mag-orange transition cursor-pointer"></i>
-                <i class="fa-brands fa-aws text-5xl text-mag-dark hover:text-mag-yellow transition cursor-pointer"></i>
-                <i class="fa-brands fa-shopify text-5xl text-mag-dark hover:text-mag-green transition cursor-pointer"></i>
-                <i class="fa-brands fa-stripe text-5xl text-mag-dark hover:text-[#635BFF] transition cursor-pointer"></i>
-                <i class="fa-brands fa-ebay text-5xl text-mag-dark hover:text-red-500 transition cursor-pointer"></i>
-                <i class="fa-brands fa-dhl text-5xl text-mag-dark hover:text-yellow-600 transition cursor-pointer"></i>
+            <p class="text-gray-500 text-xs sm:text-sm font-bold uppercase tracking-widest mb-6">Trusted by 450+ Brands Worldwide</p>
+            <div class="flex flex-wrap justify-center gap-6 sm:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <i class="fa-brands fa-amazon text-3xl sm:text-5xl text-mag-dark hover:text-mag-orange transition cursor-pointer"></i>
+                <i class="fa-brands fa-aws text-3xl sm:text-5xl text-mag-dark hover:text-mag-yellow transition cursor-pointer"></i>
+                <i class="fa-brands fa-shopify text-3xl sm:text-5xl text-mag-dark hover:text-mag-green transition cursor-pointer"></i>
+                <i class="fa-brands fa-stripe text-3xl sm:text-5xl text-mag-dark hover:text-[#635BFF] transition cursor-pointer"></i>
+                <i class="fa-brands fa-ebay text-3xl sm:text-5xl text-mag-dark hover:text-red-500 transition cursor-pointer"></i>
+                <i class="fa-brands fa-dhl text-3xl sm:text-5xl text-mag-dark hover:text-yellow-600 transition cursor-pointer"></i>
             </div>
         </div>
     </div>
 
-    <section id="services" class="py-24 bg-white relative">
+    <section id="services" class="py-12 lg:py-24 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-mag-green font-bold uppercase tracking-[0.2em] text-sm mb-3">Our Expertise</h2>
-                <h3 class="text-4xl md:text-5xl font-extrabold text-mag-dark">What We Offer</h3>
+            <div class="text-center mb-10 lg:mb-16" data-aos="fade-up">
+                <h2 class="text-mag-green font-bold uppercase tracking-[0.2em] text-xs sm:text-sm mb-3">Our Expertise</h2>
+                <h3 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-mag-dark">What We Offer</h3>
                 <div class="flex justify-center gap-2 mt-6">
                     <div class="w-16 h-2 bg-mag-orange rounded-full"></div>
                     <div class="w-8 h-2 bg-mag-green rounded-full"></div>
@@ -361,20 +412,20 @@
                 </a>
             </div>
 
-            <div class="bg-mag-dark rounded-3xl p-10 text-center flex flex-col justify-center items-center relative overflow-hidden shadow-2xl mt-16" data-aos="zoom-in" data-aos-delay="500">
+            <div class="bg-mag-dark rounded-3xl p-6 sm:p-10 text-center flex flex-col justify-center items-center relative overflow-hidden shadow-2xl mt-12 sm:mt-16" data-aos="zoom-in" data-aos-delay="500">
                 <div class="absolute -top-20 -right-20 w-64 h-64 bg-mag-orange opacity-20 rounded-full blur-3xl animate-pulse"></div>
                 <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-mag-green opacity-20 rounded-full blur-3xl"></div>
-                <h4 class="text-4xl font-extrabold text-white mb-8 relative z-10">Ready to Scale Your Business?</h4>
-                <button class="btn-yellow px-10 py-4 rounded-xl text-lg w-full md:w-auto relative z-10 shadow-xl">Contact Us Now</button>
+                <h4 class="text-2xl sm:text-4xl font-extrabold text-white mb-6 sm:mb-8 relative z-10">Ready to Scale Your Business?</h4>
+                <button class="btn-yellow px-8 sm:px-10 py-4 rounded-xl text-base sm:text-lg w-full sm:w-auto relative z-10 shadow-xl">Contact Us Now</button>
             </div>
         </div>
     </section>
 
-    <section id="results" class="py-24 bg-gray-50">
+    <section id="results" class="py-12 lg:py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-mag-orange font-bold uppercase tracking-[0.2em] text-sm mb-3">Success Stories</h2>
-                <h3 class="text-4xl font-extrabold text-mag-dark">Proven Results</h3>
+            <div class="text-center mb-10 lg:mb-16">
+                <h2 class="text-mag-orange font-bold uppercase tracking-[0.2em] text-xs sm:text-sm mb-3">Success Stories</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-mag-dark">Proven Results</h3>
                 <div class="w-24 h-1.5 bg-mag-green mx-auto mt-6 rounded-full"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -383,7 +434,7 @@
                         <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Case Study 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute top-4 right-4 bg-mag-green text-white text-xs font-bold px-3 py-1 rounded">200% Growth</div>
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 sm:p-8">
                         <h4 class="text-xl font-bold text-mag-dark mb-2">Beauty Brand Scaling</h4>
                         <p class="text-gray-600 text-sm mb-4">Achieved 3x ROI in 3 months using optimized PPC and A+ content strategies.</p>
                         <a href="#" class="text-mag-orange font-bold text-sm uppercase flex items-center gap-2 group-hover:gap-3 transition-all">Read Story <i class="fa-solid fa-arrow-right"></i></a>
@@ -394,7 +445,7 @@
                         <img src="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Case Study 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute top-4 right-4 bg-mag-yellow text-black text-xs font-bold px-3 py-1 rounded">Best Seller</div>
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 sm:p-8">
                         <h4 class="text-xl font-bold text-mag-dark mb-2">Kitchenware Launch</h4>
                         <p class="text-gray-600 text-sm mb-4">Successful product launch reaching #1 Best Seller badge within 30 days.</p>
                         <a href="#" class="text-mag-orange font-bold text-sm uppercase flex items-center gap-2 group-hover:gap-3 transition-all">Read Story <i class="fa-solid fa-arrow-right"></i></a>
@@ -405,7 +456,7 @@
                         <img src="https://images.unsplash.com/photo-1593642532400-2682810df593?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Case Study 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute top-4 right-4 bg-mag-orange text-white text-xs font-bold px-3 py-1 rounded">Global Expansion</div>
                     </div>
-                    <div class="p-8">
+                    <div class="p-6 sm:p-8">
                         <h4 class="text-xl font-bold text-mag-dark mb-2">Tech Accessories</h4>
                         <p class="text-gray-600 text-sm mb-4">Expanded US brand to UK & Germany, increasing total revenue by $500k.</p>
                         <a href="#" class="text-mag-orange font-bold text-sm uppercase flex items-center gap-2 group-hover:gap-3 transition-all">Read Story <i class="fa-solid fa-arrow-right"></i></a>
@@ -415,47 +466,47 @@
         </div>
     </section>
 
-    <section id="about" class="py-24 bg-white relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-20">
-            <div class="w-full lg:w-1/2" data-aos="fade-right">
-                <div class="relative group">
-                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-mag-orange rounded-3xl z-0 transform group-hover:rotate-12 transition duration-700 opacity-80"></div>
-                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-mag-green rounded-3xl z-0 transform group-hover:-rotate-12 transition duration-700 opacity-80"></div>
-                    <img src="sagin.jpg" alt="Team" class="rounded-2xl shadow-2xl relative z-10 border-4 border-white transform group-hover:scale-[1.02] transition duration-500">
+    <section id="about" class="py-12 lg:py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div class="w-full lg:w-1/2 px-4 sm:px-0" data-aos="fade-right">
+                <div class="relative group mx-auto max-w-sm lg:max-w-full">
+                    <div class="absolute -top-4 sm:-top-6 -left-4 sm:-left-6 w-24 sm:w-32 h-24 sm:h-32 bg-mag-orange rounded-3xl z-0 transform group-hover:rotate-12 transition duration-700 opacity-80"></div>
+                    <div class="absolute -bottom-4 sm:-bottom-6 -right-4 sm:-right-6 w-24 sm:w-32 h-24 sm:h-32 bg-mag-green rounded-3xl z-0 transform group-hover:-rotate-12 transition duration-700 opacity-80"></div>
+                    <img src="sagin.jpg" alt="Team" class="rounded-2xl shadow-2xl relative z-10 border-4 border-white transform group-hover:scale-[1.02] transition duration-500 w-full">
                 </div>
             </div>
             <div class="w-full lg:w-1/2" data-aos="fade-left">
-                <h2 class="text-4xl font-extrabold text-mag-dark mb-8 leading-tight">Private E-commerce Consulting</h2>
-                <p class="text-gray-600 mb-10 text-xl leading-relaxed font-medium">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-mag-dark mb-6 sm:mb-8 leading-tight text-center lg:text-left">Private E-commerce Consulting</h2>
+                <p class="text-gray-600 mb-8 sm:mb-10 text-lg sm:text-xl leading-relaxed font-medium text-center lg:text-left">
                     My Amazon Expert actively monitors significant developments in the global e-commerce ecosystem. From Amazon’s global expansion to new fulfillment centers, we keep you ahead of the curve.
                 </p>
-                <div class="space-y-6 mb-12">
-                    <div class="flex items-center p-5 bg-green-50/80 rounded-2xl transition hover:bg-green-100/80 border border-green-100 shadow-sm hover:shadow-md">
-                        <i class="fa-solid fa-check-circle text-mag-green text-3xl mr-5"></i>
-                        <span class="font-bold text-mag-dark text-xl">Targeting SMEs & New Sellers</span>
+                <div class="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
+                    <div class="flex items-center p-4 sm:p-5 bg-green-50/80 rounded-2xl transition hover:bg-green-100/80 border border-green-100 shadow-sm hover:shadow-md">
+                        <i class="fa-solid fa-check-circle text-mag-green text-2xl sm:text-3xl mr-4 sm:mr-5"></i>
+                        <span class="font-bold text-mag-dark text-lg sm:text-xl">Targeting SMEs & New Sellers</span>
                     </div>
-                    <div class="flex items-center p-5 bg-orange-50/80 rounded-2xl transition hover:bg-orange-100/80 border border-orange-100 shadow-sm hover:shadow-md">
-                        <i class="fa-solid fa-check-circle text-mag-orange text-3xl mr-5"></i>
-                        <span class="font-bold text-mag-dark text-xl">Sustainable Long-term Growth</span>
+                    <div class="flex items-center p-4 sm:p-5 bg-orange-50/80 rounded-2xl transition hover:bg-orange-100/80 border border-orange-100 shadow-sm hover:shadow-md">
+                        <i class="fa-solid fa-check-circle text-mag-orange text-2xl sm:text-3xl mr-4 sm:mr-5"></i>
+                        <span class="font-bold text-mag-dark text-lg sm:text-xl">Sustainable Long-term Growth</span>
                     </div>
                 </div>
-                <div class="bg-yellow-50/80 p-8 rounded-2xl border-l-8 border-mag-yellow shadow-lg relative overflow-hidden group">
-                    <i class="fa-solid fa-quote-right absolute top-4 right-6 text-7xl text-mag-yellow opacity-20 transform group-hover:scale-110 transition duration-500"></i>
-                    <p class="italic text-gray-700 text-xl font-medium relative z-10">"Our mission is to help businesses scale globally and operate efficiently."</p>
-                    <p class="mt-6 font-extrabold text-mag-dark uppercase tracking-wider text-lg flex items-center gap-3 relative z-10">
-                        <span class="w-10 h-1 bg-mag-green inline-block rounded-full"></span> Sagin Jahan, CEO
+                <div class="bg-yellow-50/80 p-6 sm:p-8 rounded-2xl border-l-8 border-mag-yellow shadow-lg relative overflow-hidden group">
+                    <i class="fa-solid fa-quote-right absolute top-4 right-6 text-5xl sm:text-7xl text-mag-yellow opacity-20 transform group-hover:scale-110 transition duration-500"></i>
+                    <p class="italic text-gray-700 text-lg sm:text-xl font-medium relative z-10">"Our mission is to help businesses scale globally and operate efficiently."</p>
+                    <p class="mt-4 sm:mt-6 font-extrabold text-mag-dark uppercase tracking-wider text-base sm:text-lg flex items-center gap-3 relative z-10">
+                        <span class="w-8 sm:w-10 h-1 bg-mag-green inline-block rounded-full"></span> Sagin Jahan, CEO
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-mag-dark text-white relative overflow-hidden">
+    <section class="py-12 lg:py-24 bg-mag-dark text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#FFD600 1px, transparent 1px); background-size: 20px 20px;"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-mag-yellow font-bold uppercase tracking-[0.2em] text-sm mb-3">Clients Feedback</h2>
-                <h3 class="text-4xl font-extrabold">What Our Clients Say</h3>
+            <div class="text-center mb-10 lg:mb-16">
+                <h2 class="text-mag-yellow font-bold uppercase tracking-[0.2em] text-xs sm:text-sm mb-3">Clients Feedback</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold">What Our Clients Say</h3>
             </div>
             
             <div class="swiper mySwiper">
@@ -516,34 +567,34 @@
         </div>
     </section>
 
-    <section class="py-24 bg-gray-50">
+    <section class="py-12 lg:py-24 bg-gray-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-mag-dark font-extrabold text-3xl">Frequently Asked Questions</h2>
+            <div class="text-center mb-10 lg:mb-12">
+                <h2 class="text-mag-dark font-extrabold text-2xl sm:text-3xl">Frequently Asked Questions</h2>
             </div>
             <div class="space-y-4">
                 <details class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 cursor-pointer group">
-                    <summary class="flex justify-between items-center font-bold text-lg text-mag-dark">How do you charge for your services? <i class="fa-solid fa-chevron-down group-open:rotate-180 transition"></i></summary>
-                    <p class="text-gray-600 mt-4 leading-relaxed">We offer both retainer-based models and performance-based pricing depending on your business size and needs. Book a call to get a custom quote.</p>
+                    <summary class="flex justify-between items-center font-bold text-base sm:text-lg text-mag-dark">How do you charge for your services? <i class="fa-solid fa-chevron-down group-open:rotate-180 transition"></i></summary>
+                    <p class="text-gray-600 mt-4 leading-relaxed text-sm sm:text-base">We offer both retainer-based models and performance-based pricing depending on your business size and needs. Book a call to get a custom quote.</p>
                 </details>
                 <details class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 cursor-pointer group">
-                    <summary class="flex justify-between items-center font-bold text-lg text-mag-dark">Do you work with new sellers? <i class="fa-solid fa-chevron-down group-open:rotate-180 transition"></i></summary>
-                    <p class="text-gray-600 mt-4 leading-relaxed">Yes! We specialize in helping new brands launch successfully on Amazon with optimized listings and launch strategies.</p>
+                    <summary class="flex justify-between items-center font-bold text-base sm:text-lg text-mag-dark">Do you work with new sellers? <i class="fa-solid fa-chevron-down group-open:rotate-180 transition"></i></summary>
+                    <p class="text-gray-600 mt-4 leading-relaxed text-sm sm:text-base">Yes! We specialize in helping new brands launch successfully on Amazon with optimized listings and launch strategies.</p>
                 </details>
                 <details class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 cursor-pointer group">
-                    <summary class="flex justify-between items-center font-bold text-lg text-mag-dark">Can you help with account suspension? <i class="fa-solid fa-chevron-down group-open:rotate-180 transition"></i></summary>
-                    <p class="text-gray-600 mt-4 leading-relaxed">Absolutely. Our team has extensive experience in writing Plans of Action (POA) to reinstate suspended accounts and listings.</p>
+                    <summary class="flex justify-between items-center font-bold text-base sm:text-lg text-mag-dark">Can you help with account suspension? <i class="fa-solid fa-chevron-down group-open:rotate-180 transition"></i></summary>
+                    <p class="text-gray-600 mt-4 leading-relaxed text-sm sm:text-base">Absolutely. Our team has extensive experience in writing Plans of Action (POA) to reinstate suspended accounts and listings.</p>
                 </details>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-24 bg-white border-t border-gray-100">
+    <section id="contact" class="py-12 lg:py-24 bg-white border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row gap-16 items-center">
+            <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
                 <div class="w-full lg:w-1/2" data-aos="fade-right">
-                    <h2 class="text-mag-green font-bold uppercase tracking-[0.2em] text-sm mb-3">Schedule A Call</h2>
-                    <h3 class="text-4xl font-extrabold text-mag-dark mb-6">Let's Discuss Your Growth Strategy</h3>
+                    <h2 class="text-mag-green font-bold uppercase tracking-[0.2em] text-xs sm:text-sm mb-3">Schedule A Call</h2>
+                    <h3 class="text-3xl sm:text-4xl font-extrabold text-mag-dark mb-6">Let's Discuss Your Growth Strategy</h3>
                     <p class="text-gray-600 text-lg mb-8 leading-relaxed">
                         Ready to scale your Amazon business? Book a free 30-minute consultation with our experts. We'll analyze your store and provide actionable insights.
                     </p>
@@ -555,7 +606,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 font-bold uppercase">Email Us</p>
-                                <p class="text-xl font-bold text-mag-dark group-hover:text-mag-orange transition">hello@myamazonexpert.com</p>
+                                <p class="text-lg sm:text-xl font-bold text-mag-dark group-hover:text-mag-orange transition break-all">hello@myamazonexpert.com</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 group">
@@ -564,7 +615,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 font-bold uppercase">Call Us</p>
-                                <p class="text-xl font-bold text-mag-dark group-hover:text-mag-green transition">+880 1770-963023</p>
+                                <p class="text-lg sm:text-xl font-bold text-mag-dark group-hover:text-mag-green transition">+880 1770-963023</p>
                             </div>
                         </div>
                     </div>
@@ -583,7 +634,7 @@
                                 <span class="w-3 h-3 rounded-full bg-mag-green"></span>
                             </div>
                         </div>
-                        <div class="p-8">
+                        <div class="p-6 sm:p-8">
                             <div class="mb-8">
                                 <div class="flex justify-between items-center mb-4">
                                     <span class="font-extrabold text-mag-dark text-lg">January 2026</span>
@@ -592,10 +643,10 @@
                                         <i class="fa-solid fa-chevron-right hover:text-mag-dark cursor-pointer p-1"></i>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-7 gap-2 text-center text-xs font-bold text-gray-400 mb-2">
+                                <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-xs font-bold text-gray-400 mb-2">
                                     <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
                                 </div>
-                                <div class="grid grid-cols-7 gap-2 text-center text-sm font-bold text-gray-700">
+                                <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-sm font-bold text-gray-700">
                                     <span class="p-2 text-gray-300">29</span>
                                     <span class="p-2 text-gray-300">30</span>
                                     <span class="p-2 hover:bg-gray-100 hover:text-mag-green rounded-lg cursor-pointer transition">1</span>
@@ -614,10 +665,10 @@
                             </div>
                             <div class="space-y-4">
                                 <p class="text-xs font-bold text-gray-400 uppercase tracking-wide">Available Slots</p>
-                                <div class="grid grid-cols-3 gap-3">
-                                    <button class="border border-gray-200 py-2.5 rounded-lg text-sm font-bold text-gray-600 hover:border-mag-green hover:text-white hover:bg-mag-green transition shadow-sm">10:00 AM</button>
-                                    <button class="bg-mag-dark text-white py-2.5 rounded-lg text-sm font-bold shadow-md transform scale-105 border border-mag-dark">02:30 PM</button>
-                                    <button class="border border-gray-200 py-2.5 rounded-lg text-sm font-bold text-gray-600 hover:border-mag-green hover:text-white hover:bg-mag-green transition shadow-sm">04:00 PM</button>
+                                <div class="grid grid-cols-3 gap-2 sm:gap-3">
+                                    <button class="border border-gray-200 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-gray-600 hover:border-mag-green hover:text-white hover:bg-mag-green transition shadow-sm">10:00 AM</button>
+                                    <button class="bg-mag-dark text-white py-2.5 rounded-lg text-xs sm:text-sm font-bold shadow-md transform scale-105 border border-mag-dark">02:30 PM</button>
+                                    <button class="border border-gray-200 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-gray-600 hover:border-mag-green hover:text-white hover:bg-mag-green transition shadow-sm">04:00 PM</button>
                                 </div>
                             </div>
                             <button class="btn-yellow w-full mt-8 py-4 rounded-xl shadow-lg hover:shadow-2xl">Confirm Booking</button>
@@ -628,10 +679,10 @@
         </div>
     </section>
 
-    <footer class="bg-mag-dark text-white pt-28 pb-12 border-t-[10px] border-mag-yellow relative overflow-hidden">
+    <footer class="bg-mag-dark text-white pt-16 lg:pt-28 pb-12 border-t-[10px] border-mag-yellow relative overflow-hidden">
         <div class="absolute top-0 right-0 w-full h-20 bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 lg:mb-20">
                 <div>
                     <h3 class="text-3xl font-extrabold mb-8 leading-none tracking-tight">MY AMAZON <br> <span class="text-mag-yellow">EXPERT</span></h3>
                     <p class="text-gray-400 mb-8 leading-relaxed font-medium">Helping businesses scale globally and operate efficiently on e-commerce platforms. Your growth is our mission.</p>
@@ -689,14 +740,13 @@
         // Swiper Logic (Continuous Flow + Working Arrows)
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 1,
-            spaceBetween: 30,
+            spaceBetween: 20, // Smaller gap for mobile
             loop: true,
-            // 4000ms speed keeps it continuous but allows arrow clicks to register
             speed: 4000, 
             autoplay: {
-                delay: 0, // Continuous flow
-                disableOnInteraction: false, // Continue after clicking
-                pauseOnMouseEnter: true, // Stop on hover
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
             },
             navigation: {
                 nextEl: ".swiper-button-next",
@@ -722,7 +772,7 @@
         const backToTopBtn = document.getElementById('backToTopBtn');
 
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) { // Show after 500px scroll (approx second page)
+            if (window.scrollY > 500) { 
                 backToTopBtn.classList.remove('opacity-0', 'invisible');
                 backToTopBtn.classList.add('opacity-100', 'visible');
             } else {
@@ -730,6 +780,33 @@
                 backToTopBtn.classList.remove('opacity-100', 'visible');
             }
         });
+
+        // --- MOBILE MENU LOGIC (New Added) ---
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const body = document.body;
+
+        function toggleMenu() {
+            const isClosed = mobileMenu.classList.contains('translate-x-full');
+            if (isClosed) {
+                mobileMenu.classList.remove('translate-x-full');
+                body.classList.add('menu-open');
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                body.classList.remove('menu-open');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+
+        // Close menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
     </script>
 </body>
 </html>
