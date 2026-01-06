@@ -16,7 +16,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
-        body { font-family: 'Manrope', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+        /* FIX: Added max-width and strict overflow hiding */
+        html, body {
+            font-family: 'Manrope', sans-serif; 
+            scroll-behavior: smooth; 
+            overflow-x: hidden; 
+            max-width: 100%;
+            width: 100%;
+            position: relative;
+        }
 
         /* --- Official Colors --- */
         :root {
@@ -139,7 +147,7 @@
             100%  {opacity: 1; transform: translateY(0)}
         }
 
-        /* --- SWIPER CUSTOM STYLES (EXACTLY AS YOU HAD IT) --- */
+        /* --- SWIPER CUSTOM STYLES --- */
         .swiper-button-next, .swiper-button-prev {
             color: var(--mag-yellow) !important;
             background: rgba(255, 255, 255, 0.1);
@@ -170,7 +178,6 @@
             }
         }
 
-        /* CRITICAL: Makes the slide move smoothly (Linear) - KEPT UNCHANGED */
         .swiper-wrapper {
             transition-timing-function: linear !important;
         }
@@ -179,6 +186,8 @@
         #mobile-menu {
             transition: transform 0.3s ease-in-out;
             height: 100dvh;
+            /* FIX: changed from w-screen to w-full to prevent overflow */
+            width: 100%;
         }
         .menu-open {
             overflow: hidden; 
@@ -186,7 +195,7 @@
 
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased overflow-x-hidden">
+<body class="bg-gray-50 text-gray-800 antialiased">
 
     <div class="bg-[#37475A] text-white py-2 text-xs sm:text-sm font-medium">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
@@ -223,7 +232,7 @@
             </div>
         </div>
 
-        <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full lg:hidden flex flex-col w-screen">
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full lg:hidden flex flex-col w-full">
             <div class="flex justify-between items-center p-4 border-b border-gray-100">
                 <div class="flex items-center">
                     <img src="My Amazon expert.png" alt="My Amazon Expert Logo" class="h-8 w-auto object-contain">
@@ -733,7 +742,7 @@
         // Init AOS
         AOS.init({ duration: 1000, once: true, easing: 'ease-in-out-quart' });
 
-        // Swiper Logic (RESTORED TO ORIGINAL CONTINUOUS FLOW)
+        // Swiper Logic
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 1,
             spaceBetween: 20, // Smaller gap for mobile
